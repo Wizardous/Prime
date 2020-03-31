@@ -177,8 +177,8 @@ class Prime:
             for i in range(2, num//2+1):
                 if (num % i) == 0:
                     return ("Not Prime", self.col_not_prime)
-                else:  
-                    return ("Prime", self.col_prime)
+            else:  
+                return ("Prime", self.col_prime)
         else:  
             return ("Not Sure!", self.col_default)
 
