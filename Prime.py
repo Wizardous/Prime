@@ -5,8 +5,13 @@ import tkinter as tk
 # global constant to hold all themes, dict
 THEMES = None
 class Prime:
+    """
+    Class holding all the Tkinter code to render a window to accept the number
+    and answer weather the number is prime or not. Also contains the function 
+    to check for prime number.
+    """
 
-    def __init__(self, master):
+    def __init__(self, master:tk.Tk) -> None:
         self.height = 300
         self.width = 500
 
@@ -23,7 +28,7 @@ class Prime:
         y = (h//2) - (self.height//2)
 
 
-        # Window Setup ----------------------------------------------------------------
+        # Window Setup --------------------------------------------------------
 
         # Setting default theme on app startup
         self.theme_name = 'Blue_Berries'
@@ -44,9 +49,10 @@ class Prime:
         self.master.resizable(False, False)
 
 
-        # Widgets ------------------------------------------------------------------    
+        # Widgets -------------------------------------------------------------
 
-        # Frame widget to hold the title and the Input text widget. (Upper Section)
+        # Frame widget to hold the title and the input text widget. 
+        # (Upper Section of the window)
         self.input_frame = tk.Frame(self.master, 
                                     height=self.height//2, 
                                     width=self.width, 
@@ -79,7 +85,8 @@ class Prime:
         self.num_entry.place(relx=0.5, rely=0.4, anchor='n')
         self.num_entry.focus()
 
-        # Frame to hold output label and warning/status label (Lower section)
+        # Frame to hold output label and warning/status label 
+        # (Lower section of the window)
         self.output_frame = tk.Frame(self.master, 
                                      height=self.height//2, 
                                      width=self.width, 
@@ -105,23 +112,36 @@ class Prime:
                                   font = "Montserrat 10",
                                   text = "Waiting for a number!" )
         self.error_lbl.place(relx=0.5, y=140,anchor="s")
+        # END of widgets placements.
 
-    # method to select a theme for the application randomly.
-    def randomize_theme(self, event):
+    # END of __init__()
+
+    def randomize_theme(self, event) -> None:
+        """
+        Event Callback on key press.
+        Method to select a new color theme from the list of themes randomly.
+        """
+        # Get names of all themes and remove the name of current theme form the
+        # list to avoid repetation.
         themes = list(THEMES.keys())
         themes.remove(self.theme_name)
-        
+
         self.theme_name = choice(themes)
-        # print(self.theme_name)
+
         self.set_theme()
         self.update_ui()
 
-    # Method to set the theme values in the property variables.
-    def set_theme(self):
-        # load themes from the json file if not already loaded
+    def set_theme(self) -> None:
+        """
+        Method to set all class variable related to widget coloring with
+        selected color theme values.
+        """
+
         global THEMES
+
+        # load themes from the json file if not already loaded
         if THEMES is None:
-            THEMES = self.get_thems()
+            THEMES = self.get_themes()
 
         self.current_theme = THEMES[self.theme_name]
         self.col_bg = self.current_theme['bg']
@@ -131,8 +151,14 @@ class Prime:
         self.col_prime = self.current_theme['prime']
         self.col_warning = self.current_theme['warning']
     
-    def get_thems(self):
+    def get_themes(self) -> dict:
+        """
+        Returns a dictionary for a json file containing all color schems and
+        themes for the application.
+        """
+
         FILE_NAME = "Colors.json"
+        
         try:
             with open(FILE_NAME, "r") as themes_file:
                 return load_json(themes_file)
@@ -140,10 +166,11 @@ class Prime:
             print("Exception Occured: ", e)
             return dict()
 
-
-
-    # Method to apply the changed property to the application's widgets
-    def update_ui(self):
+    def update_ui(self) -> None:
+        """
+        Refresh all widgets in the application to change the colors scheme
+        after theme change
+        """
         self.input_frame.configure(bg=self.col_bg)
         self.output_frame.config(bg=self.col_bg)
 
@@ -154,18 +181,25 @@ class Prime:
         
     # Callback method to mointor the input text widget on every 
     # character entry...
-    def entry_callback(self, *args):
+    def entry_callback(self, *args) -> None:
+        """
+        Event Callback (Character entry event).
+        Method called whenever user enters new number/character in the input 
+        field. Warns user if entry gets larger than 10 digits or user inputs
+        non-numeric character. Reverts text of entry to previous valid value 
+        in case of any invalid inputs.
+        """
         # get new input value form the text variable...
         string = self.test_number.get()
 
         # If length exceeds 10 characters change back to 10 characters and 
-        # show a worning msg...
+        # show a warning msg...
         if len(string) > 10:
             self.test_number.set(self.__oldvalue)
             self.error_lbl['text'] = "Whoa! Hold on, input limit is 10"
 
         # If the input string in all digits convert it to number type and
-        # print its result in result label
+        # print its result in result label.
         elif string != "" and string.isdigit():
             number = int(string)
 
@@ -200,8 +234,12 @@ class Prime:
 
             self.error_lbl['text'] = "Opps... Only Integers Please!"
 
-    # Method to check the input number is prime or not...
-    def check_prime(self, num):
+    def check_prime(self, num) -> tuple:
+        """
+        Method to check if passed number is Prime or Not.
+        Returns a tuple containing status string and color parameter to set the
+        message label to.
+        """
         if num > 1:
             if num in [2,3]:
                 return ("Prime", self.col_prime)
@@ -213,13 +251,12 @@ class Prime:
         else:  
             return ("Not Sure!", self.col_default)
 
-
+# Driver function.
 def main():
     root = tk.Tk()
     Prime(root)
     root.mainloop()
     pass
-
 
 if __name__ == "__main__":
     main()
