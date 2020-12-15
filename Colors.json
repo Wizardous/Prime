@@ -22,5 +22,21 @@
         "default": "#D5C3AA",
         "prime": "#a8937e",
         "not_prime": "#867666"
+    },
+    "Blue Matrix": {
+        "bg": "#101116",
+        "fg": "#00A2FF",
+        "warning": "#60FDFF",
+        "default": "#D682EC",
+        "prime": "#5FFA68",
+        "not_prime": "#FF6E67"
+    },
+    "Terminal Basic": {
+        "bg": "#FFFFFF",
+        "fg": "#000000",
+        "warning": "#00A3A3",
+        "default": "#0000B2",
+        "prime": "#00D900",
+        "not_prime": "#990000"
     }
 }
