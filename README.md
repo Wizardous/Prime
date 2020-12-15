@@ -1,14 +1,22 @@
 # Prime
-A simple tkinter application to check prime numbers.
+A simple application to check if number is prime or not using python Tkinter framework.
 
-![Screenshot](Images/img_1.png)
+![Themes](Screenshots/Gifs/theme-gif_1.gif)
 
 ### Files:
-- Colors.py : Contains the set of themes which can be applied in the application. The file is only to store the theme in a dictonary and used in ```Prime.py```
-- Prime.py : This is the main file to run. Contains the structure of the application and to check the number.
+- **`Prime.py`** : Main file to run, contains all tkinter application layout.
+- **`Colors.json`** : Contains themes for the application UI, used inside main file to change theme on keypress events.
 
 ### Features :
-- The number is checked as soon as the user types it.
-- Application warns the user on non-digit inputs and removes it automatically from the input.
-- Application can give result of number upto 10 digits long after which it does not takes input and warns user.
-- The key 'T' on the keyboard can be used to cycle through themes randomly.
+- Dynamic check, updated result as soon as number typed.
+- Warning over non-numeric inputs.
+- Results for numbers up to 10 digits long.
+- Theme cycles on "*T*" keypress.
+
+### Output Screenshots :
+![Run](Screenshots/Gifs/run_gif_2.gif)
+
+### How to Run :
+The application can be launched by running the `Prime.py` python script file via a terminal. Requires Tkinter installed.
+
+> User Can add new themes to the `Colors.json` file. However, application must be restarted to take effect.
