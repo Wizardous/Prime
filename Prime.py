@@ -240,16 +240,14 @@ class Prime:
         Returns a tuple containing status string and color parameter to set the
         message label to.
         """
-        if num > 1:
-            if num in [2,3]:
-                return ("Prime", self.col_prime)
-            for i in range(2, num//2+1):
-                if (num % i) == 0:
-                    return ("Not Prime", self.col_not_prime)
-            else:  
-                return ("Prime", self.col_prime)
-        else:  
+        if num == 1:
             return ("Not Sure!", self.col_default)
+        i=2
+        while i*i<=num:
+            if num%i == 0:
+                return ("Not Prime", self.col_not_prime)
+            i+=1
+        return ("Prime", self.col_prime)
 
 # Driver function.
 def main():
